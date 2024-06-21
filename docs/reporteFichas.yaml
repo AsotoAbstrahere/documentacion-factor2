@@ -1,0 +1,67 @@
+openapi: 3.0.0
+info:
+  title: Factor2 REST API
+  version: 1.0.0
+  description: Documentación de API Factor2
+paths:
+  /operaciones/reporte/{factoring}/{fechaDesde}/{fechaHasta}:
+    get:
+      summary: Obtener lista de fichas
+      parameters:
+        - name: factoring
+          in: path
+          required: true
+          schema: 
+            type: string
+          description: ID del factoring
+        - name: fechaDesde
+          in: path
+          required: true
+          schema: 
+            type: string
+          description: Fecha inicio del reporte de fichas YYYY-MM-DD
+        - name: fechaHasta
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Fecha fin del reporte de fichas YYYY-MM-DD 
+      tags: 
+        - Fichas
+      responses:
+        '200':
+          description: Lista de fichas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ficha'
+components:
+  schemas:
+    Ficha:
+      type: object
+      properties:
+        rutCliente:
+          type: string
+        razonSocialCliente:
+          type: string
+        estado:
+          type: string
+        createdAt:
+          type: string
+          description: Fecha creación de la ficha
+        emailFrom:
+          type: string
+          description: Correo que carga la ficha en la BD
+        adjuntos:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Nombre del archivo
+              url:
+                type: string
+                description: URL del archivo
